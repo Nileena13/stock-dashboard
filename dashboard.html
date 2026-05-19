@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Stock Volume Dashboard - May 19, 2026</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --bg:#f5f5f3;--surface:#fff;--surface2:#f0efed;--border:rgba(0,0,0,0.08);
+      --text:#1a1a1a;--text2:#6b6b6b;--text3:#aaa;
+      --blue1:#185FA5;--blue2:#378ADD;--teal1:#0F6E56;--teal2:#1D9E75;
+      --green-bg:#EAF3DE;--green-text:#3B6D11;--red-bg:#FCEBEB;--red-text:#A32D2D;
+      --snp-bg:#E1F5EE;--snp-text:#0F6E56;--r:12px;--rs:8px;
+    }
+    @media(prefers-color-scheme:dark){:root{
+      --bg:#111110;--surface:#1c1c1b;--surface2:#242423;--border:rgba(255,255,255,0.08);
+      --text:#f0ede8;--text2:#888;--text3:#555;--blue1:#5B9FD8;--blue2:#85B7EB;
+      --teal1:#1D9E75;--teal2:#5DCAA5;--green-bg:#1a2e10;--green-text:#7ec850;
+      --red-bg:#2e1010;--red-text:#f08080;--snp-bg:#0a2018;--snp-text:#5DCAA5;
+    }}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem 1.5rem;}
+    .page{max-width:1060px;margin:0 auto;}
+    .hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.75rem;gap:1rem;flex-wrap:wrap;}
+    .brand{display:flex;align-items:center;gap:12px;}
+    .bicon{width:44px;height:44px;border-radius:var(--rs);background:var(--blue1);display:flex;align-items:center;justify-content:center;}
+    .bicon svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+    h1{font-size:22px;font-weight:700;letter-spacing:-0.4px;}
+    .sub{font-size:13px;color:var(--text2);margin-top:3px;}
+    .hdr-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    .pill{font-size:12px;color:var(--text2);background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:6px 14px;white-space:nowrap;}
+    .pill-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#1D9E75;margin-right:6px;vertical-align:middle;}
+    .rbtn{display:flex;align-items:center;gap:7px;padding:10px 20px;font-size:13px;font-weight:600;background:var(--blue1);color:#fff;border:none;border-radius:8px;cursor:pointer;transition:background 0.15s,transform 0.1s;}
+    .rbtn:hover{background:var(--blue2);} .rbtn:active{transform:scale(0.97);}
+    .rbtn svg{width:15px;height:15px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+    .spin{animation:spin 0.9s linear infinite;} @keyframes spin{to{transform:rotate(360deg);}}
+    .stamp-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:10px 16px;margin-bottom:1.5rem;font-size:12.5px;color:var(--text2);text-align:center;line-height:1.6;}
+    .stamp-bar strong{color:var(--text);}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:1.75rem;}
+    .metric{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;}
+    .ml{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:5px;}
+    .mv{font-size:23px;font-weight:700;letter-spacing:-0.5px;} .ms{font-size:12px;color:var(--text3);margin-top:3px;}
+    .sec{margin-top:1.75rem;}
+    .sbadge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:6px;}
+    .ball{background:rgba(55,138,221,0.12);color:var(--blue1);} .bsnp{background:var(--snp-bg);color:var(--snp-text);}
+    .sec h2{font-size:16px;font-weight:600;margin-bottom:3px;} .sec p{font-size:12px;color:var(--text2);margin-bottom:12px;}
+    .tcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow-x:auto;margin-bottom:12px;}
+    .tcard.snp{border-color:rgba(29,158,117,0.3);}
+    table{width:100%;border-collapse:collapse;font-size:13px;min-width:700px;}
+    thead{background:var(--surface2);} .tcard.snp thead{background:var(--snp-bg);}
+    th{padding:11px 12px;text-align:left;font-size:10.5px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;border-bottom:1px solid var(--border);white-space:nowrap;}
+    .tcard.snp th{color:var(--snp-text);}
+    td{padding:12px 12px;border-bottom:1px solid var(--border);vertical-align:middle;}
+    tr:last-child td{border-bottom:none;} tr:hover td{background:var(--surface2);}
+    .tbdg{display:inline-block;font-weight:700;font-size:12px;padding:3px 7px;border-radius:5px;}
+    .tall{color:var(--blue1);background:rgba(55,138,221,0.12);} .tsnp{color:var(--teal1);background:var(--snp-bg);}
+    .vw{display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+    .vbg{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;min-width:60px;}
+    .vf{height:100%;border-radius:3px;}
+    .vn{font-size:11px;color:var(--text2);white-space:nowrap;min-width:48px;text-align:right;font-weight:500;}
+    .bdg{font-size:12px;font-weight:600;padding:3px 7px;border-radius:5px;white-space:nowrap;}
+    .pos{color:var(--green-text);background:var(--green-bg);} .neg{color:var(--red-text);background:var(--red-bg);} .neu{color:var(--text2);background:var(--surface2);}
+    .chcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:4px;}
+    .chcard.snp{border-color:rgba(29,158,117,0.3);}
+    .chtitle{font-size:11px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
+    .lgnd{display:flex;gap:14px;margin-bottom:10px;}
+    .li{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2);}
+    .ld{width:10px;height:10px;border-radius:2px;flex-shrink:0;}
+    .chwrap{position:relative;height:210px;}
+    hr{border:none;border-top:1px solid var(--border);margin:2rem 0;}
+    .gloss{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;margin-bottom:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;}
+    .gt{font-size:12px;font-weight:600;margin-bottom:2px;} .gd{font-size:12px;color:var(--text2);line-height:1.5;}
+    .foot{text-align:center;font-size:12px;color:var(--text3);padding-top:1.25rem;border-top:1px solid var(--border);line-height:1.8;}
+    .foot a{color:var(--blue2);text-decoration:none;}
+    @media(max-width:680px){.metrics{grid-template-columns:1fr 1fr;}.gloss{grid-template-columns:1fr;}}
+    .stag{display:inline-block;font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;background:var(--surface2);color:var(--text2);margin-top:3px;}
+    .spk{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;background:#FEF3C7;color:#92400E;white-space:nowrap;}
+    @media(prefers-color-scheme:dark){.spk{background:#3d2b00;color:#FCD34D;}}
+    .gl-wrap{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem;}
+    .gl-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;}
+    .gl-g{border-color:rgba(59,109,17,0.25);} .gl-l{border-color:rgba(163,45,45,0.25);}
+    .gl-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:10px;}
+    .gl-g .gl-head{color:var(--green-text);} .gl-l .gl-head{color:var(--red-text);}
+    .gl-row{display:flex;align-items:center;gap:6px;padding:7px 0;border-bottom:1px solid var(--border);}
+    .gl-row:last-child{border-bottom:none;}
+    .gl-tk{font-size:12px;font-weight:700;min-width:42px;} .gl-nm{font-size:11px;color:var(--text2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;} .gl-pr{font-size:11px;color:var(--text2);white-space:nowrap;}
+    @media(max-width:480px){.gl-wrap{grid-template-columns:1fr;}}
+    .hist-empty{padding:24px;text-align:center;color:var(--text2);font-size:13px;line-height:1.8;}
+    .hist-tcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow-x:auto;margin-bottom:12px;}
+    .hist-tcard table{min-width:560px;}
+    .today-tag{font-size:10px;font-weight:600;padding:1px 6px;border-radius:4px;background:rgba(55,138,221,0.12);color:var(--blue1);margin-left:6px;vertical-align:middle;}
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="hdr">
+    <div class="brand">
+      <div class="bicon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div><h1>Volume Dashboard</h1><div class="sub">Daily Trading Volume &middot; All US Stocks &amp; S&amp;P 500</div></div>
+    </div>
+    <div class="hdr-right">
+      <div class="pill"><span class="pill-dot"></span>May 19, 2026 · Live</div>
+      <button class="rbtn" onclick="openRefresh()">
+        <svg id="ricon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>
+        Refresh Data
+      </button>
+    </div>
+  </div>
+  <div class="stamp-bar">&#128197; Prices &amp; volumes as of <strong>May 19, 2026 · 09:40 AM ET · Live · Market Open</strong> &nbsp;&middot;&nbsp; If market is closed, data reflects last trading session close</div>
+  <div class="metrics">
+    <div class="metric"><div class="ml">Top All-Market</div><div class="mv">INTC</div><div class="ms">14.2M shares</div></div>
+    <div class="metric"><div class="ml">Top S&amp;P 500</div><div class="mv">INTC</div><div class="ms">14.4M shares</div></div>
+    <div class="metric"><div class="ml">S&amp;P 500 Total Vol</div><div class="mv">61.1M</div><div class="ms">top 10 combined</div></div>
+    <div class="metric"><div class="ml">Largest S&amp;P Cap</div><div class="mv">NVDA</div><div class="ms">$5.38T</div></div>
+  </div>
+  <div class="gl-wrap">
+    <div class="gl-card gl-g"><div class="gl-head">Top Gainers &middot; All Market</div><div id="glGain"></div></div>
+    <div class="gl-card gl-l"><div class="gl-head">Top Losers &middot; All Market</div><div id="glLoss"></div></div>
+  </div>
+  <div class="sec">
+    <span class="sbadge ball">All US Stocks</span>
+    <h2>Top 10 by Daily Volume</h2>
+    <p>All exchanges &mdash; often dominated by small-cap stocks with news-driven spikes</p>
+    <div class="tcard" id="allT"></div>
+    <div class="chcard">
+      <div class="chtitle">Volume vs ADV &mdash; All Stocks (millions of shares)</div>
+      <div class="lgnd">
+        <div class="li"><div class="ld" style="background:#378ADD"></div>Today's volume</div>
+        <div class="li"><div class="ld" style="background:rgba(160,160,160,0.4);border:1px solid rgba(130,130,130,0.5)"></div>ADV 20D</div>
+      </div>
+      <div class="chwrap"><canvas id="allC"></canvas></div>
+    </div>
+  </div>
+  <hr/>
+  <div class="sec">
+    <span class="sbadge bsnp">S&amp;P 500</span>
+    <h2>Top 10 S&amp;P 500 Stocks by Daily Volume</h2>
+    <p>Large-cap index members only &mdash; blue-chip companies like Apple, NVIDIA, Tesla</p>
+    <div class="tcard snp" id="snpT"></div>
+    <div class="chcard snp">
+      <div class="chtitle">Volume vs ADV &mdash; S&amp;P 500 Stocks (millions of shares)</div>
+      <div class="lgnd">
+        <div class="li"><div class="ld" style="background:#1D9E75"></div>Today's volume</div>
+        <div class="li"><div class="ld" style="background:rgba(160,160,160,0.4);border:1px solid rgba(130,130,130,0.5)"></div>ADV 20D</div>
+      </div>
+      <div class="chwrap"><canvas id="snpC"></canvas></div>
+    </div>
+  </div>
+  <hr/>
+  <div class="sec">
+    <span class="sbadge" style="background:rgba(120,80,220,0.12);color:#7c3aed;">History</span>
+    <h2>Daily History &mdash; Last 7 Days</h2>
+    <p>One row per trading day &mdash; today is highlighted. Grows automatically each morning when the script runs.</p>
+    <div class="hist-tcard" id="histT"></div>
+    <div class="chcard" style="margin-top:12px;">
+      <div class="chtitle">S&amp;P 500 Top 10 &mdash; Total Volume Per Day (millions of shares)</div>
+      <div class="chwrap"><canvas id="histC"></canvas></div>
+    </div>
+  </div>
+  <hr/>
+  <div class="gloss">
+    <div><div class="gt">Volume (daily)</div><div class="gd">Total shares traded today. Resets every morning at market open (9:30 AM ET).</div></div>
+    <div><div class="gt">Market Cap</div><div class="gd">Total company value = share price &times; total shares outstanding.</div></div>
+    <div><div class="gt">ADV 20D</div><div class="gd">Average Daily Volume over ~20 trading days &mdash; the stock's normal activity level.</div></div>
+    <div><div class="gt">% Price Change</div><div class="gd">Price movement today vs yesterday's close. Green = up, Red = down.</div></div>
+    <div><div class="gt">Sector</div><div class="gd">Industry the company belongs to, e.g. Technology, Finance, Auto/EV.</div></div>
+    <div><div class="gt">Volume Spike</div><div class="gd">Shown when today's volume is more than 2&times; the 20-day average.</div></div>
+    <div><div class="gt">Daily History</div><div class="gd">Saved every time the script runs. Keeps the last 30 days.</div></div>
+    <div><div class="gt">Email Summary</div><div class="gd">Sent automatically each morning to anugrahpr23@gmail.com when the script runs.</div></div>
+  </div>
+  <div class="foot">
+    Live data from <a href="https://finance.yahoo.com" target="_blank">Yahoo Finance</a> via yfinance &middot;
+    May 19, 2026 &middot; Not financial advice &middot; Built with <a href="https://claude.ai" target="_blank">Claude AI</a>
+  </div>
+</div>
+<script>
+const allStocks = [
+  { t:"INTC", n:"Intel Corporation", v:14245264, price:"$107.88", ch:-0.27, cap:"$541.57B", adv:115402898, sector:"Technology" },
+  { t:"NVDA", n:"NVIDIA Corporation", v:12524782, price:"$221.8", ch:-0.23, cap:"$5.37T", adv:170476930, sector:"Technology" },
+  { t:"MU", n:"Micron Technology, Inc.", v:6943682, price:"$696.27", ch:2.16, cap:"$787.98B", adv:44597190, sector:"Technology" },
+  { t:"PLUG", n:"Plug Power, Inc.", v:4593205, price:"$3.43", ch:-0.62, cap:"$4.78B", adv:82838361, sector:"Energy" },
+  { t:"SOFI", n:"SoFi Technologies, Inc.", v:4550410, price:"$15.36", ch:-2.23, cap:"$19.65B", adv:66580359, sector:"Finance" },
+  { t:"AAPL", n:"Apple Inc.", v:4428740, price:"$299.45", ch:0.54, cap:"$4.40T", adv:43559972, sector:"Technology" },
+  { t:"MSFT", n:"Microsoft Corporation", v:4424944, price:"$426.23", ch:0.64, cap:"$3.17T", adv:34332322, sector:"Technology" },
+  { t:"TSLA", n:"Tesla, Inc.", v:4078184, price:"$403.36", ch:-1.62, cap:"$1.51T", adv:62651506, sector:"Auto/EV" },
+  { t:"NIO", n:"NIO Inc.", v:4003909, price:"$5.75", ch:-2.21, cap:"$14.40B", adv:39779574, sector:"Auto/EV" },
+  { t:"NFLX", n:"Netflix, Inc.", v:3884181, price:"$90.08", ch:0.48, cap:"$378.97B", adv:44244661, sector:"Entertainment" }
+];
+const snpStocks = [
+  { t:"INTC", n:"Intel Corporation", v:14392364, price:"$108.09", ch:-0.07, cap:"$542.86B", adv:115402898, sector:"Technology" },
+  { t:"NVDA", n:"NVIDIA Corporation", v:12698682, price:"$222.07", ch:-0.11, cap:"$5.38T", adv:170476930, sector:"Technology" },
+  { t:"MU", n:"Micron Technology, Inc.", v:7052971, price:"$698.13", ch:2.43, cap:"$781.51B", adv:44597190, sector:"Technology" },
+  { t:"MSFT", n:"Microsoft Corporation", v:4485825, price:"$425.18", ch:0.39, cap:"$3.16T", adv:34332322, sector:"Technology" },
+  { t:"AAPL", n:"Apple Inc.", v:4479654, price:"$299.77", ch:0.65, cap:"$4.40T", adv:43559972, sector:"Technology" },
+  { t:"TSLA", n:"Tesla, Inc.", v:4117909, price:"$403.62", ch:-1.55, cap:"$1.52T", adv:62651506, sector:"Auto/EV" },
+  { t:"NFLX", n:"Netflix, Inc.", v:3925050, price:"$90.0", ch:0.39, cap:"$379.39B", adv:44244661, sector:"Entertainment" },
+  { t:"PLTR", n:"Palantir Technologies Inc.", v:3645099, price:"$135.76", ch:0.46, cap:"$325.66B", adv:48076438, sector:"Technology" },
+  { t:"AMZN", n:"Amazon.com, Inc.", v:3151633, price:"$260.38", ch:-1.69, cap:"$2.80T", adv:46096695, sector:"Consumer" },
+  { t:"F", n:"Ford Motor Company", v:3102687, price:"$12.81", ch:-1.65, cap:"$51.06B", adv:56832374, sector:"Auto" }
+];
+const gainers=[{t:"MU",n:"Micron Technology, Inc.",ch:2.16,price:"$696.27",sector:"Technology"},{t:"AMD",n:"Advanced Micro Devices, Inc.",ch:1.0,price:"$425.21",sector:"Technology"},{t:"MSFT",n:"Microsoft Corporation",ch:0.64,price:"$426.23",sector:"Technology"},{t:"AAPL",n:"Apple Inc.",ch:0.54,price:"$299.45",sector:"Technology"},{t:"NFLX",n:"Netflix, Inc.",ch:0.48,price:"$90.08",sector:"Entertainment"}];
+const losers=[{t:"RIVN",n:"Rivian Automotive, Inc.",ch:-4.05,price:"$12.81",sector:"Auto/EV"},{t:"SPCE",n:"Virgin Galactic Holdings, Inc.",ch:-2.91,price:"$2.51",sector:"Aerospace"},{t:"SOFI",n:"SoFi Technologies, Inc.",ch:-2.23,price:"$15.36",sector:"Finance"},{t:"NIO",n:"NIO Inc.",ch:-2.21,price:"$5.75",sector:"Auto/EV"},{t:"AAL",n:"American Airlines Group, Inc.",ch:-2.03,price:"$12.11",sector:"Airlines"}];
+const historyData=[{"date": "2026-05-15", "label": "May 15", "topAll": "NVDA", "topAllVol": 75683852, "topSnp": "NVDA", "topSnpVol": 75732113, "snpTotalVol": 325182206},{"date": "2026-05-18", "label": "May 18", "topAll": "INTC", "topAllVol": 68162874, "topSnp": "INTC", "topSnpVol": 68233446, "snpTotalVol": 290442494},{"date": "2026-05-19", "label": "May 19", "topAll": "INTC", "topAllVol": 14245264, "topSnp": "INTC", "topSnpVol": 14392364, "snpTotalVol": 61051874}];
+const allColors=['#185FA5','#378ADD','#378ADD','#378ADD','#378ADD','#85B7EB','#85B7EB','#85B7EB','#85B7EB','#85B7EB'];
+const snpColors=['#0F6E56','#1D9E75','#1D9E75','#1D9E75','#1D9E75','#5DCAA5','#5DCAA5','#5DCAA5','#5DCAA5','#5DCAA5'];
+function fmtV(n){if(!n||n===0)return'-';if(n>=1e9)return(n/1e9).toFixed(2)+'B';if(n>=1e6)return(n/1e6).toFixed(1)+'M';return Math.round(n/1e3)+'K';}
+function buildTable(stocks,cls,colors){
+  const maxV=Math.max(...stocks.map(s=>s.v));
+  const rows=stocks.map((s,i)=>{
+    const pct=Math.round((s.v/maxV)*100);
+    const chStr=(s.ch>=0?'+':'')+Number(s.ch).toFixed(2)+'%';
+    const bc=s.ch>0?'pos':s.ch<0?'neg':'neu';
+    const isSpike=s.adv>0&&s.v>2*s.adv;
+    const spikeRatio=s.adv>0?Math.round(s.v/s.adv):0;
+    const spikeBadge=isSpike?`<div style="margin-top:3px"><span class="spk">&#9889; ${spikeRatio}x avg vol</span></div>`:'';
+    return `<tr><td style="width:34px;color:var(--text3);font-size:12px">${i+1}</td>
+      <td style="width:70px"><span class="tbdg t${cls}">${s.t}</span></td>
+      <td style="max-width:160px"><div style="color:var(--text2);font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.n}</div>${s.sector?`<span class="stag">${s.sector}</span>`:''}</td>
+      <td style="width:160px"><div class="vw"><div class="vbg"><div class="vf" style="width:${pct}%;background:${colors[i]}"></div></div><span class="vn">${fmtV(s.v)}</span></div>${spikeBadge}</td>
+      <td style="width:80px;font-size:12px;color:var(--text2)">${s.cap}</td>
+      <td style="width:76px;font-size:12px;color:var(--text2)">${fmtV(s.adv)}</td>
+      <td style="width:76px;font-size:13px;font-weight:500">${s.price}</td>
+      <td style="width:96px"><span class="bdg ${bc}">${chStr}</span></td></tr>`;
+  }).join('');
+  return `<table><thead><tr><th style="width:34px">#</th><th style="width:70px">Ticker</th><th>Company</th><th style="width:160px">Volume</th><th style="width:80px">Mkt Cap</th><th style="width:76px">ADV 20D</th><th style="width:76px">Price</th><th style="width:96px">% Change</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function buildGLRow(s,isGain){
+  const cls=isGain?'pos':'neg';
+  const chStr=(s.ch>=0?'+':'')+Number(s.ch).toFixed(2)+'%';
+  return `<div class="gl-row"><span class="gl-tk">${s.t}</span><span class="gl-nm">${s.n}</span><span class="gl-pr">${s.price}</span><span class="bdg ${cls}">${chStr}</span></div>`;
+}
+function buildHistTable(entries){
+  if(!entries||entries.length===0) return '<div class="hist-empty">No history yet. Run the script each morning and a new row will appear here.</div>';
+  const sorted=[...entries].reverse();
+  const rows=sorted.map((e,i)=>{
+    const isToday=i===0;
+    const todayTag=isToday?'<span class="today-tag">Today</span>':'';
+    const fw=isToday?'700':'400';
+    return `<tr><td style="font-size:12px;font-weight:${fw};white-space:nowrap">${e.label}${todayTag}</td><td style="font-size:12px;font-weight:700;color:var(--blue1)">${e.topAll}</td><td style="font-size:12px;color:var(--text2)">${fmtV(e.topAllVol)}</td><td style="font-size:12px;font-weight:700;color:var(--teal1)">${e.topSnp}</td><td style="font-size:12px;color:var(--text2)">${fmtV(e.topSnpVol)}</td><td style="font-size:12px;color:var(--text2)">${fmtV(e.snpTotalVol)}</td></tr>`;
+  }).join('');
+  return `<table><thead><tr><th>Date</th><th>Top All-Market</th><th>Vol</th><th>Top S&amp;P 500</th><th>Vol</th><th>S&amp;P Total Vol</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+const isDark=matchMedia('(prefers-color-scheme:dark)').matches;
+const tc=isDark?'rgba(255,255,255,0.4)':'rgba(0,0,0,0.4)';
+const gc=isDark?'rgba(255,255,255,0.06)':'rgba(0,0,0,0.05)';
+const opts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>' '+fmtV(ctx.raw*1e6)+' shares'}}},scales:{x:{ticks:{color:tc,font:{size:11},autoSkip:false},grid:{display:false},border:{display:false}},y:{ticks:{color:tc,font:{size:11},callback:v=>v+'M'},grid:{color:gc},border:{display:false}}}};
+document.getElementById('allT').innerHTML=buildTable(allStocks,'all',allColors);
+document.getElementById('snpT').innerHTML=buildTable(snpStocks,'snp',snpColors);
+document.getElementById('glGain').innerHTML=gainers.map(s=>buildGLRow(s,true)).join('');
+document.getElementById('glLoss').innerHTML=losers.map(s=>buildGLRow(s,false)).join('');
+document.getElementById('histT').innerHTML=buildHistTable(historyData);
+if(historyData&&historyData.length>0){
+  const hc=historyData.map((_,i)=>i===historyData.length-1?'#7c3aed':'rgba(120,80,220,0.35)');
+  new Chart(document.getElementById('histC'),{type:'bar',data:{labels:historyData.map(e=>e.label),datasets:[{label:'S&P Total Vol',data:historyData.map(e=>parseFloat((e.snpTotalVol/1e6).toFixed(1))),backgroundColor:hc,borderRadius:4,borderSkipped:false}]},options:opts});
+}else{document.getElementById('histC').parentElement.style.display='none';}
+new Chart(document.getElementById('allC'),{type:'bar',data:{labels:allStocks.map(s=>s.t),datasets:[{label:"Today",data:allStocks.map(s=>parseFloat((s.v/1e6).toFixed(1))),backgroundColor:allColors,borderRadius:4,borderSkipped:false},{label:"ADV",data:allStocks.map(s=>parseFloat((s.adv/1e6).toFixed(1))),backgroundColor:'rgba(160,160,160,0.15)',borderRadius:4,borderSkipped:false,borderWidth:1.5,borderColor:'rgba(140,140,140,0.4)'}]},options:opts});
+new Chart(document.getElementById('snpC'),{type:'bar',data:{labels:snpStocks.map(s=>s.t),datasets:[{label:"Today",data:snpStocks.map(s=>parseFloat((s.v/1e6).toFixed(1))),backgroundColor:snpColors,borderRadius:4,borderSkipped:false},{label:"ADV",data:snpStocks.map(s=>parseFloat((s.adv/1e6).toFixed(1))),backgroundColor:'rgba(160,160,160,0.15)',borderRadius:4,borderSkipped:false,borderWidth:1.5,borderColor:'rgba(140,140,140,0.4)'}]},options:opts});
+function openRefresh(){const icon=document.getElementById('ricon');icon.classList.add('spin');setTimeout(()=>{icon.classList.remove('spin');alert('To refresh:\n\n1. Go to Terminal\n2. Run: python3 fetch_stock_volume.py\n3. Refresh this page');  },600);}
+</script>
+</body>
+</html>
