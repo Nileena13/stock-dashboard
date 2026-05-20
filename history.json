@@ -26,6 +26,15 @@
       "top_snp": "INTC",
       "top_snp_vol": 109701405,
       "snp_total_vol": 469105795
+    },
+    {
+      "date": "2026-05-20",
+      "date_label": "May 20",
+      "top_all": "INTC",
+      "top_all_vol": 21791627,
+      "top_snp": "INTC",
+      "top_snp_vol": 22246085,
+      "snp_total_vol": 60936307
     }
   ]
 }
