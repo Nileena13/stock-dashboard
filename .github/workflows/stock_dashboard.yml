@@ -1,0 +1,44 @@
+name: Stock Dashboard
+
+on:
+  schedule:
+    # Daily Mon-Fri at 9:35 AM ET (13:35 UTC)
+    - cron: '35 13 * * 1-5'
+    # Friday weekly summary at 4:05 PM ET (20:05 UTC)
+    - cron: '5 20 * * 5'
+  workflow_dispatch:  # allows manual run from GitHub
+
+jobs:
+  run-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies
+        run: pip install yfinance
+
+      - name: Create email config
+        run: |
+          echo '{"app_password": "${{ secrets.GMAIL_APP_PASSWORD }}"}' > email_config.json
+
+      - name: Run dashboard (daily)
+        if: github.event.schedule == '35 13 * * 1-5'
+        run: python fetch_stock_volume.py
+
+      - name: Run weekly summary (Friday)
+        if: github.event.schedule == '5 20 * * 5'
+        run: python fetch_stock_volume.py --weekly
+
+      - name: Push updated files to GitHub
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add dashboard.html history.json stock_data.json
+          git diff --staged --quiet || git commit -m "auto update $(date +'%Y-%m-%d')"
+          git push
