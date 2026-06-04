@@ -821,7 +821,9 @@ def main():
     print_table("Top 10 Most Active US Stocks",      all_stocks, "ALL MARKET")
     print_table("Top 10 Most Active S&P 500 Stocks", snp_stocks, "S&P 500")
 
-    fetched_at  = datetime.now()
+    # Always use Eastern Time (ET) so timestamp is correct on GitHub servers too
+    et = timezone(timedelta(hours=-4))
+    fetched_at  = datetime.now(et).replace(tzinfo=None)
     market_open = is_market_open()
 
     history = save_history(all_stocks, snp_stocks, fetched_at)
