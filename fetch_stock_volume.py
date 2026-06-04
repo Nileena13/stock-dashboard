@@ -47,7 +47,7 @@ SECTORS = {
 
 # ── Email Config ──────────────────────────────────────────────────
 SENDER_EMAIL   = "nileenak77@gmail.com"
-RECEIVER_EMAIL        = "anugrahpr23@gmail.com"
+RECEIVER_EMAIL        = "nileenak13@gmail.com"
 WEEKLY_RECEIVER_EMAIL = "nileenak13@gmail.com"
 
 # ── Helpers ───────────────────────────────────────────────────────
