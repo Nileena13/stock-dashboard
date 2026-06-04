@@ -2,11 +2,12 @@ name: Stock Dashboard
 
 on:
   schedule:
-    # Daily Mon-Fri at 9:35 AM ET (13:35 UTC)
     - cron: '35 13 * * 1-5'
-    # Friday weekly summary at 4:05 PM ET (20:05 UTC)
     - cron: '5 20 * * 5'
-  workflow_dispatch:  # allows manual run from GitHub
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   run-dashboard:
@@ -14,6 +15,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -27,11 +30,11 @@ jobs:
         run: |
           echo '{"app_password": "${{ secrets.GMAIL_APP_PASSWORD }}"}' > email_config.json
 
-      - name: Run dashboard (daily)
-        if: github.event.schedule == '35 13 * * 1-5'
+      - name: Run dashboard (daily Mon-Fri)
+        if: github.event.schedule == '35 13 * * 1-5' || github.event_name == 'workflow_dispatch'
         run: python fetch_stock_volume.py
 
-      - name: Run weekly summary (Friday)
+      - name: Run weekly summary (Friday only)
         if: github.event.schedule == '5 20 * * 5'
         run: python fetch_stock_volume.py --weekly
 
