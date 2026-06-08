@@ -311,9 +311,8 @@ def build_email_html(all_stocks, snp_stocks, fetched_at, market_open):
     gain_rows = gl_rows(gainers, True)
     loss_rows = gl_rows(losers,  False)
 
-    # Fetch market news and stock-specific news
-    print("  --> Fetching market news...")
-    market_news = fetch_market_news(max_items=4)
+    # Fetch stock-specific news
+    print("  --> Fetching stock news...")
     stock_news  = {}
     for s in all_stocks[:5]:
         stock_news[s["ticker"]] = fetch_stock_news(s["ticker"], s["name"], max_items=2)
@@ -327,7 +326,6 @@ def build_email_html(all_stocks, snp_stocks, fetched_at, market_open):
                 f'<div style="font-size:10px;color:#aaa;margin-top:2px;">{publisher}</div>' 
                 f'</div>')
 
-    market_news_html = "".join(news_item_html(n) for n in market_news) if market_news else '<div style="padding:12px;color:#aaa;font-size:12px;">No market news available today.</div>'
 
     def stock_news_section(s):
         news = stock_news.get(s["ticker"], [])
@@ -386,10 +384,6 @@ def build_email_html(all_stocks, snp_stocks, fetched_at, market_open):
       </tr></thead>
       <tbody>{snp_rows}</tbody>
     </table>
-    <!-- General Market News -->
-    <div {sh}>&#127758; General Market News</div>
-    <div style="padding:8px 14px 4px;">{market_news_html}</div>
-
     <!-- Stock Specific News -->
     <div {sh}>&#128240; Top Movers News</div>
     {stock_news_html}
@@ -520,10 +514,6 @@ def build_weekly_html(history, sent_at):
       </tr></thead>
       <tbody>{rows}</tbody>
     </table>
-
-    <!-- General Market News -->
-    <div {sh}>&#127758; General Market News</div>
-    <div style="padding:8px 14px 4px;">{market_news_html}</div>
 
     <!-- Stock Specific News -->
     <div {sh}>&#128240; Top Movers News</div>
