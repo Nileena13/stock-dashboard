@@ -190,44 +190,54 @@ def history_to_js(history):
     return 'const historyData=[' + ','.join(items) + '];'
 
 
-# ── News Fetcher ──────────────────────────────────────────────────
-def fetch_stock_news(ticker, max_items=2):
-    """Fetch latest news headlines for a specific stock ticker."""
+# ── News Fetcher (NewsAPI.org) ────────────────────────────────────
+def fetch_market_news(max_items=4):
+    """Fetch general market news from NewsAPI.org."""
+    import os, urllib.request
+    api_key = os.environ.get("NEWS_API_KEY", "")
+    if not api_key:
+        return []
     try:
-        stock = yf.Ticker(ticker)
-        news  = stock.news
-        if not news:
-            return []
-        items = []
-        for n in news[:max_items]:
-            title     = n.get("title", "")
-            link      = n.get("link", "")
-            publisher = n.get("publisher", "")
-            if title:
-                items.append({"title": title, "link": link, "publisher": publisher})
-        return items
+        url = (f"https://newsapi.org/v2/top-headlines"
+               f"?category=business&language=en&pageSize={max_items}"
+               f"&apiKey={api_key}")
+        with urllib.request.urlopen(url, timeout=10) as r:
+            data = json.loads(r.read().decode())
+        results = []
+        for a in data.get("articles", [])[:max_items]:
+            title  = a.get("title", "") or ""
+            link   = a.get("url",   "") or ""
+            source = a.get("source", {}).get("name", "") or ""
+            if title and "[Removed]" not in title:
+                results.append({"title": title, "link": link, "publisher": source})
+        return results
     except Exception:
         return []
 
 
-def fetch_market_news(max_items=4):
-    """Fetch general market news using SPY as a proxy for market headlines."""
+def fetch_stock_news(ticker, company_name, max_items=2):
+    """Fetch stock-specific news from NewsAPI.org."""
+    import os, urllib.request
+    api_key = os.environ.get("NEWS_API_KEY", "")
+    if not api_key:
+        return []
     try:
-        tickers_to_try = ["SPY", "QQQ", "DIA"]
-        seen    = set()
+        # Use short company name for better results
+        query = ticker
+        url   = (f"https://newsapi.org/v2/everything"
+                 f"?q={urllib.request.quote(query)}&language=en"
+                 f"&sortBy=publishedAt&pageSize={max_items}"
+                 f"&apiKey={api_key}")
+        with urllib.request.urlopen(url, timeout=10) as r:
+            data = json.loads(r.read().decode())
         results = []
-        for t in tickers_to_try:
-            news = yf.Ticker(t).news or []
-            for n in news:
-                title = n.get("title", "")
-                link  = n.get("link", "")
-                publisher = n.get("publisher", "")
-                if title and title not in seen:
-                    seen.add(title)
-                    results.append({"title": title, "link": link, "publisher": publisher})
-            if len(results) >= max_items:
-                break
-        return results[:max_items]
+        for a in data.get("articles", [])[:max_items]:
+            title  = a.get("title", "") or ""
+            link   = a.get("url",   "") or ""
+            source = a.get("source", {}).get("name", "") or ""
+            if title and "[Removed]" not in title:
+                results.append({"title": title, "link": link, "publisher": source})
+        return results
     except Exception:
         return []
 
@@ -306,7 +316,7 @@ def build_email_html(all_stocks, snp_stocks, fetched_at, market_open):
     market_news = fetch_market_news(max_items=4)
     stock_news  = {}
     for s in all_stocks[:5]:
-        stock_news[s["ticker"]] = fetch_stock_news(s["ticker"], max_items=2)
+        stock_news[s["ticker"]] = fetch_stock_news(s["ticker"], s["name"], max_items=2)
 
     def news_item_html(n):
         link      = n.get("link", "#")
