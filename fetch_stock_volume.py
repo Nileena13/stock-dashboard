@@ -189,6 +189,48 @@ def history_to_js(history):
     }) for e in entries]
     return 'const historyData=[' + ','.join(items) + '];'
 
+
+# ── News Fetcher ──────────────────────────────────────────────────
+def fetch_stock_news(ticker, max_items=2):
+    """Fetch latest news headlines for a specific stock ticker."""
+    try:
+        stock = yf.Ticker(ticker)
+        news  = stock.news
+        if not news:
+            return []
+        items = []
+        for n in news[:max_items]:
+            title     = n.get("title", "")
+            link      = n.get("link", "")
+            publisher = n.get("publisher", "")
+            if title:
+                items.append({"title": title, "link": link, "publisher": publisher})
+        return items
+    except Exception:
+        return []
+
+
+def fetch_market_news(max_items=4):
+    """Fetch general market news using SPY as a proxy for market headlines."""
+    try:
+        tickers_to_try = ["SPY", "QQQ", "DIA"]
+        seen    = set()
+        results = []
+        for t in tickers_to_try:
+            news = yf.Ticker(t).news or []
+            for n in news:
+                title = n.get("title", "")
+                link  = n.get("link", "")
+                publisher = n.get("publisher", "")
+                if title and title not in seen:
+                    seen.add(title)
+                    results.append({"title": title, "link": link, "publisher": publisher})
+            if len(results) >= max_items:
+                break
+        return results[:max_items]
+    except Exception:
+        return []
+
 # ── Email Summary ─────────────────────────────────────────────────
 def load_email_config():
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "email_config.json")
@@ -259,6 +301,36 @@ def build_email_html(all_stocks, snp_stocks, fetched_at, market_open):
     gain_rows = gl_rows(gainers, True)
     loss_rows = gl_rows(losers,  False)
 
+    # Fetch market news and stock-specific news
+    print("  --> Fetching market news...")
+    market_news = fetch_market_news(max_items=4)
+    stock_news  = {}
+    for s in all_stocks[:5]:
+        stock_news[s["ticker"]] = fetch_stock_news(s["ticker"], max_items=2)
+
+    def news_item_html(n):
+        link      = n.get("link", "#")
+        title     = n.get("title", "")
+        publisher = n.get("publisher", "")
+        return (f'<div style="padding:8px 0;border-bottom:1px solid #f5f5f3;">' 
+                f'<a href="{link}" target="_blank" style="color:#185FA5;font-size:12px;font-weight:600;text-decoration:none;line-height:1.4;">{title}</a>' 
+                f'<div style="font-size:10px;color:#aaa;margin-top:2px;">{publisher}</div>' 
+                f'</div>')
+
+    market_news_html = "".join(news_item_html(n) for n in market_news) if market_news else '<div style="padding:12px;color:#aaa;font-size:12px;">No market news available today.</div>'
+
+    def stock_news_section(s):
+        news = stock_news.get(s["ticker"], [])
+        if not news:
+            return ""
+        news_html = "".join(news_item_html(n) for n in news)
+        return (f'<div style="padding:12px 14px;background:#fafafa;border-bottom:1px solid #f0efed;">' 
+                f'<div style="font-size:11px;font-weight:700;color:#185FA5;margin-bottom:4px;">' 
+                f'&#128240; {s["ticker"]} News</div>' 
+                f'{news_html}</div>')
+
+    stock_news_html = "".join(stock_news_section(s) for s in all_stocks[:5])
+
     return f"""<!DOCTYPE html>
 <html>
 <head><meta charset="UTF-8"></head>
@@ -304,6 +376,14 @@ def build_email_html(all_stocks, snp_stocks, fetched_at, market_open):
       </tr></thead>
       <tbody>{snp_rows}</tbody>
     </table>
+    <!-- General Market News -->
+    <div {sh}>&#127758; General Market News</div>
+    <div style="padding:8px 14px 4px;">{market_news_html}</div>
+
+    <!-- Stock Specific News -->
+    <div {sh}>&#128240; Top Movers News</div>
+    {stock_news_html}
+
     <div style="padding:16px 20px;text-align:center;font-size:11px;color:#bbb;border-top:1px solid #f0efed;">
       Not financial advice &nbsp;·&nbsp; Data from Yahoo Finance &nbsp;·&nbsp; Built with Claude AI
     </div>
@@ -430,6 +510,14 @@ def build_weekly_html(history, sent_at):
       </tr></thead>
       <tbody>{rows}</tbody>
     </table>
+
+    <!-- General Market News -->
+    <div {sh}>&#127758; General Market News</div>
+    <div style="padding:8px 14px 4px;">{market_news_html}</div>
+
+    <!-- Stock Specific News -->
+    <div {sh}>&#128240; Top Movers News</div>
+    {stock_news_html}
 
     <div style="padding:16px 20px;text-align:center;font-size:11px;color:#bbb;border-top:1px solid #f0efed;">
       Not financial advice &nbsp;·&nbsp; Data from Yahoo Finance &nbsp;·&nbsp; Built with Claude AI
