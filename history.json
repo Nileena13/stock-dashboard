@@ -134,6 +134,15 @@
       "top_snp": "NVDA",
       "top_snp_vol": 81730441,
       "snp_total_vol": 423000748
+    },
+    {
+      "date": "2026-06-11",
+      "date_label": "Jun 11",
+      "top_all": "SMCI",
+      "top_all_vol": 178688181,
+      "top_snp": "SMCI",
+      "top_snp_vol": 178792821,
+      "snp_total_vol": 554297044
     }
   ]
 }
