@@ -143,6 +143,15 @@
       "top_snp": "SMCI",
       "top_snp_vol": 178792821,
       "snp_total_vol": 554297044
+    },
+    {
+      "date": "2026-06-12",
+      "date_label": "Jun 12",
+      "top_all": "SPCE",
+      "top_all_vol": 106405371,
+      "top_snp": "INTC",
+      "top_snp_vol": 84486419,
+      "snp_total_vol": 396510661
     }
   ]
 }
