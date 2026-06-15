@@ -384,10 +384,6 @@ def build_email_html(all_stocks, snp_stocks, fetched_at, market_open):
       </tr></thead>
       <tbody>{snp_rows}</tbody>
     </table>
-    <!-- Stock Specific News -->
-    <div {sh}>&#128240; Top Movers News</div>
-    {stock_news_html}
-
     <div style="padding:16px 20px;text-align:center;font-size:11px;color:#bbb;border-top:1px solid #f0efed;">
       Not financial advice &nbsp;·&nbsp; Data from Yahoo Finance &nbsp;·&nbsp; Built with Claude AI
     </div>
@@ -514,10 +510,6 @@ def build_weekly_html(history, sent_at):
       </tr></thead>
       <tbody>{rows}</tbody>
     </table>
-
-    <!-- Stock Specific News -->
-    <div {sh}>&#128240; Top Movers News</div>
-    {stock_news_html}
 
     <div style="padding:16px 20px;text-align:center;font-size:11px;color:#bbb;border-top:1px solid #f0efed;">
       Not financial advice &nbsp;·&nbsp; Data from Yahoo Finance &nbsp;·&nbsp; Built with Claude AI
