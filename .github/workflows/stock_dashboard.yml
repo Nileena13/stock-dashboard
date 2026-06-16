@@ -34,6 +34,10 @@ jobs:
         if: github.event.schedule == '35 13 * * 1-5' || github.event_name == 'workflow_dispatch'
         env:
           NEWS_API_KEY: ${{ secrets.NEWS_API_KEY }}
+          GIT_AUTHOR_NAME: GitHub Actions
+          GIT_AUTHOR_EMAIL: actions@github.com
+          GIT_COMMITTER_NAME: GitHub Actions
+          GIT_COMMITTER_EMAIL: actions@github.com
         run: python fetch_stock_volume.py
 
       - name: Run weekly summary (Friday only)
