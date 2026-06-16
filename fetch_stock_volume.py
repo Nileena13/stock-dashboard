@@ -191,51 +191,32 @@ def history_to_js(history):
 
 
 # ── News Fetcher (NewsAPI.org) ────────────────────────────────────
-def fetch_market_news(max_items=4):
-    """Fetch general market news from NewsAPI.org."""
-    import os, urllib.request
-    api_key = os.environ.get("NEWS_API_KEY", "")
-    if not api_key:
-        return []
-    try:
-        url = (f"https://newsapi.org/v2/top-headlines"
-               f"?category=business&language=en&pageSize={max_items}"
-               f"&apiKey={api_key}")
-        with urllib.request.urlopen(url, timeout=10) as r:
-            data = json.loads(r.read().decode())
-        results = []
-        for a in data.get("articles", [])[:max_items]:
-            title  = a.get("title", "") or ""
-            link   = a.get("url",   "") or ""
-            source = a.get("source", {}).get("name", "") or ""
-            if title and "[Removed]" not in title:
-                results.append({"title": title, "link": link, "publisher": source})
-        return results
-    except Exception:
-        return []
+
 
 
 def fetch_stock_news(ticker, company_name, max_items=2):
-    """Fetch stock-specific news from NewsAPI.org."""
-    import os, urllib.request
-    api_key = os.environ.get("NEWS_API_KEY", "")
-    if not api_key:
-        return []
+    """Fetch stock-specific news from Google News RSS — works from any server, no API key needed."""
+    import urllib.request, urllib.parse
     try:
-        # Use short company name for better results
-        query = ticker
-        url   = (f"https://newsapi.org/v2/everything"
-                 f"?q={urllib.request.quote(query)}&language=en"
-                 f"&sortBy=publishedAt&pageSize={max_items}"
-                 f"&apiKey={api_key}")
-        with urllib.request.urlopen(url, timeout=10) as r:
-            data = json.loads(r.read().decode())
+        query = urllib.parse.quote(f"{ticker} stock")
+        url   = f"https://news.google.com/rss/search?q={query}&hl=en-US&gl=US&ceid=US:en"
+        req   = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req, timeout=10) as r:
+            raw = r.read().decode("utf-8")
+        # Simple XML parsing without external libraries
+        import re
+        items   = re.findall(r"<item>(.*?)</item>", raw, re.DOTALL)
         results = []
-        for a in data.get("articles", [])[:max_items]:
-            title  = a.get("title", "") or ""
-            link   = a.get("url",   "") or ""
-            source = a.get("source", {}).get("name", "") or ""
-            if title and "[Removed]" not in title:
+        for item in items[:max_items]:
+            title_m = re.search(r"<title>(.*?)</title>", item)
+            link_m  = re.search(r"<link/>(.*?)<", item)
+            source_m= re.search(r"<source[^>]*>(.*?)</source>", item)
+            title   = title_m.group(1).strip() if title_m else ""
+            link    = link_m.group(1).strip()  if link_m  else ""
+            source  = source_m.group(1).strip() if source_m else "Google News"
+            # Clean HTML entities
+            title = title.replace("&amp;","&").replace("&quot;",'"').replace("&#39;","'")
+            if title:
                 results.append({"title": title, "link": link, "publisher": source})
         return results
     except Exception:
