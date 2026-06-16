@@ -161,6 +161,15 @@
       "top_snp": "AAL",
       "top_snp_vol": 117270230,
       "snp_total_vol": 499628123
+    },
+    {
+      "date": "2026-06-16",
+      "date_label": "Jun 16",
+      "top_all": "NVDA",
+      "top_all_vol": 10787068,
+      "top_snp": "NVDA",
+      "top_snp_vol": 10909253,
+      "snp_total_vol": 55038368
     }
   ]
 }
