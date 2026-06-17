@@ -170,6 +170,15 @@
       "top_snp": "AAL",
       "top_snp_vol": 99207266,
       "snp_total_vol": 469665134
+    },
+    {
+      "date": "2026-06-17",
+      "date_label": "Jun 17",
+      "top_all": "SOFI",
+      "top_all_vol": 59642332,
+      "top_snp": "AAL",
+      "top_snp_vol": 58100533,
+      "snp_total_vol": 298611549
     }
   ]
 }
