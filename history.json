@@ -179,6 +179,15 @@
       "top_snp": "AAL",
       "top_snp_vol": 58100533,
       "snp_total_vol": 298611549
+    },
+    {
+      "date": "2026-06-18",
+      "date_label": "Jun 18",
+      "top_all": "INTC",
+      "top_all_vol": 117866382,
+      "top_snp": "INTC",
+      "top_snp_vol": 117935773,
+      "snp_total_vol": 484376324
     }
   ]
 }
