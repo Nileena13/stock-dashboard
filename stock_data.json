@@ -1,208 +1,208 @@
 {
-  "fetched_at": "2026-06-22T14:05:39.827989",
+  "fetched_at": "2026-06-23T12:12:04.558863",
   "market_open": true,
   "all_market_top10": [
     {
-      "ticker": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "volume": 132483000,
-      "price": 16.44,
-      "change_pct": 2.85,
-      "market_cap": 10876478376.126274,
-      "adv_20d": 72518471,
-      "sector": "Airlines"
-    },
-    {
-      "ticker": "SMCI",
-      "name": "Super Micro Computer, Inc.",
-      "volume": 90211273,
-      "price": 36.7,
-      "change_pct": 19.7,
-      "market_cap": 23733770472.285084,
-      "adv_20d": 51650759,
-      "sector": "Technology"
+      "ticker": "AMC",
+      "name": "AMC Entertainment Holdings, Inc",
+      "volume": 68124831,
+      "price": 2.05,
+      "change_pct": -25.91,
+      "market_cap": 1542281226.983736,
+      "adv_20d": 34664407,
+      "sector": "Entertainment"
     },
     {
       "ticker": "INTC",
       "name": "Intel Corporation",
-      "volume": 87162075,
-      "price": 140.38,
-      "change_pct": 4.77,
-      "market_cap": 705549904541.0156,
-      "adv_20d": 132491812,
+      "volume": 68003123,
+      "price": 136.47,
+      "change_pct": -3.17,
+      "market_cap": 685898226135.2539,
+      "adv_20d": 132842604,
       "sector": "Technology"
+    },
+    {
+      "ticker": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "volume": 65668474,
+      "price": 16.32,
+      "change_pct": 1.46,
+      "market_cap": 10783884860.623726,
+      "adv_20d": 74648719,
+      "sector": "Airlines"
     },
     {
       "ticker": "NVDA",
       "name": "NVIDIA Corporation",
-      "volume": 75615905,
-      "price": 208.87,
-      "change_pct": -0.86,
-      "market_cap": 5060130052383.423,
-      "adv_20d": 164168004,
+      "volume": 61751815,
+      "price": 202.71,
+      "change_pct": -2.84,
+      "market_cap": 4910565673049.927,
+      "adv_20d": 162160936,
       "sector": "Technology"
-    },
-    {
-      "ticker": "NFLX",
-      "name": "Netflix, Inc.",
-      "volume": 53872149,
-      "price": 72.97,
-      "change_pct": -5.69,
-      "market_cap": 307240899175.11523,
-      "adv_20d": 39653728,
-      "sector": "Entertainment"
     },
     {
       "ticker": "SOFI",
       "name": "SoFi Technologies, Inc.",
-      "volume": 51358365,
-      "price": 17.32,
-      "change_pct": -3.32,
-      "market_cap": 22223492268.65387,
-      "adv_20d": 68016675,
+      "volume": 38369668,
+      "price": 17.63,
+      "change_pct": 3.1,
+      "market_cap": 22621141355.59616,
+      "adv_20d": 67902265,
       "sector": "Finance"
-    },
-    {
-      "ticker": "MARA",
-      "name": "MARA Holdings, Inc.",
-      "volume": 48843549,
-      "price": 15.05,
-      "change_pct": 5.84,
-      "market_cap": 5738121142.871577,
-      "adv_20d": 43665407,
-      "sector": "Crypto"
-    },
-    {
-      "ticker": "F",
-      "name": "Ford Motor Company",
-      "volume": 40049685,
-      "price": 14.18,
-      "change_pct": 0.85,
-      "market_cap": 56506526202.80755,
-      "adv_20d": 57936832,
-      "sector": "Auto"
-    },
-    {
-      "ticker": "PLTR",
-      "name": "Palantir Technologies Inc.",
-      "volume": 35279994,
-      "price": 120.9,
-      "change_pct": -5.89,
-      "market_cap": 289882959869.23065,
-      "adv_20d": 44321218,
-      "sector": "Technology"
-    },
-    {
-      "ticker": "AMZN",
-      "name": "Amazon.com, Inc.",
-      "volume": 34776735,
-      "price": 233.79,
-      "change_pct": -4.34,
-      "market_cap": 2514797030816.843,
-      "adv_20d": 45114428,
-      "sector": "Consumer"
-    }
-  ],
-  "snp500_top10": [
-    {
-      "ticker": "AAL",
-      "name": "American Airlines Group, Inc.",
-      "volume": 132535666,
-      "price": 16.44,
-      "change_pct": 2.85,
-      "market_cap": 10876478376.126274,
-      "adv_20d": 72518471,
-      "sector": "Airlines"
     },
     {
       "ticker": "SMCI",
       "name": "Super Micro Computer, Inc.",
-      "volume": 90409377,
-      "price": 36.69,
-      "change_pct": 19.65,
-      "market_cap": 23740176426.181004,
-      "adv_20d": 51650759,
+      "volume": 31851432,
+      "price": 34.21,
+      "change_pct": -3.53,
+      "market_cap": 22116587904.785084,
+      "adv_20d": 50232077,
       "sector": "Technology"
-    },
-    {
-      "ticker": "INTC",
-      "name": "Intel Corporation",
-      "volume": 87170356,
-      "price": 140.36,
-      "change_pct": 4.75,
-      "market_cap": 705750910797.1191,
-      "adv_20d": 132491812,
-      "sector": "Technology"
-    },
-    {
-      "ticker": "NVDA",
-      "name": "NVIDIA Corporation",
-      "volume": 75672247,
-      "price": 208.91,
-      "change_pct": -0.84,
-      "market_cap": 5060130052383.423,
-      "adv_20d": 164168004,
-      "sector": "Technology"
-    },
-    {
-      "ticker": "NFLX",
-      "name": "Netflix, Inc.",
-      "volume": 53898729,
-      "price": 72.96,
-      "change_pct": -5.71,
-      "market_cap": 307240899175.11523,
-      "adv_20d": 39653728,
-      "sector": "Entertainment"
-    },
-    {
-      "ticker": "F",
-      "name": "Ford Motor Company",
-      "volume": 40155675,
-      "price": 14.18,
-      "change_pct": 0.85,
-      "market_cap": 56502942709.43169,
-      "adv_20d": 57936832,
-      "sector": "Auto"
-    },
-    {
-      "ticker": "PLTR",
-      "name": "Palantir Technologies Inc.",
-      "volume": 35302260,
-      "price": 120.87,
-      "change_pct": -5.92,
-      "market_cap": 289823023411.7979,
-      "adv_20d": 44321218,
-      "sector": "Technology"
-    },
-    {
-      "ticker": "AMZN",
-      "name": "Amazon.com, Inc.",
-      "volume": 34787981,
-      "price": 233.75,
-      "change_pct": -4.35,
-      "market_cap": 2514259142516.95,
-      "adv_20d": 45114428,
-      "sector": "Consumer"
-    },
-    {
-      "ticker": "TSLA",
-      "name": "Tesla, Inc.",
-      "volume": 33725071,
-      "price": 407.41,
-      "change_pct": 1.73,
-      "market_cap": 1530044402822.1763,
-      "adv_20d": 58543740,
-      "sector": "Auto/EV"
     },
     {
       "ticker": "MU",
       "name": "Micron Technology, Inc.",
-      "volume": 32911940,
-      "price": 1198.97,
-      "change_pct": 5.73,
-      "market_cap": 1352418128131.4434,
-      "adv_20d": 51277512,
+      "volume": 30087377,
+      "price": 1095.37,
+      "change_pct": -9.58,
+      "market_cap": 1235421364516.9622,
+      "adv_20d": 50722484,
       "sector": "Technology"
+    },
+    {
+      "ticker": "PLUG",
+      "name": "Plug Power, Inc.",
+      "volume": 24340836,
+      "price": 2.8,
+      "change_pct": 0.18,
+      "market_cap": 3894614197.630767,
+      "adv_20d": 73702839,
+      "sector": "Energy"
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla, Inc.",
+      "volume": 23095331,
+      "price": 384.88,
+      "change_pct": -4.98,
+      "market_cap": 1445465427893.2744,
+      "adv_20d": 57917615,
+      "sector": "Auto/EV"
+    },
+    {
+      "ticker": "F",
+      "name": "Ford Motor Company",
+      "volume": 22534504,
+      "price": 14.09,
+      "change_pct": -0.18,
+      "market_cap": 56124395845.55396,
+      "adv_20d": 56817857,
+      "sector": "Auto"
+    }
+  ],
+  "snp500_top10": [
+    {
+      "ticker": "INTC",
+      "name": "Intel Corporation",
+      "volume": 68058176,
+      "price": 136.37,
+      "change_pct": -3.24,
+      "market_cap": 685898226135.2539,
+      "adv_20d": 132842604,
+      "sector": "Technology"
+    },
+    {
+      "ticker": "AAL",
+      "name": "American Airlines Group, Inc.",
+      "volume": 65704364,
+      "price": 16.31,
+      "change_pct": 1.4,
+      "market_cap": 10783884860.623726,
+      "adv_20d": 74648719,
+      "sector": "Airlines"
+    },
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA Corporation",
+      "volume": 61829228,
+      "price": 202.81,
+      "change_pct": -2.8,
+      "market_cap": 4912260950866.699,
+      "adv_20d": 162160936,
+      "sector": "Technology"
+    },
+    {
+      "ticker": "SMCI",
+      "name": "Super Micro Computer, Inc.",
+      "volume": 31866239,
+      "price": 34.17,
+      "change_pct": -3.64,
+      "market_cap": 22123058016.924953,
+      "adv_20d": 50232077,
+      "sector": "Technology"
+    },
+    {
+      "ticker": "MU",
+      "name": "Micron Technology, Inc.",
+      "volume": 30111755,
+      "price": 1095.36,
+      "change_pct": -9.58,
+      "market_cap": 1235742807267.0947,
+      "adv_20d": 50722484,
+      "sector": "Technology"
+    },
+    {
+      "ticker": "T",
+      "name": "AT&T Inc.",
+      "volume": 27810924,
+      "price": 22.82,
+      "change_pct": 3.24,
+      "market_cap": 158559698539.25467,
+      "adv_20d": 41426580,
+      "sector": "Telecom"
+    },
+    {
+      "ticker": "TSLA",
+      "name": "Tesla, Inc.",
+      "volume": 23110994,
+      "price": 384.86,
+      "change_pct": -4.98,
+      "market_cap": 1445388864674.713,
+      "adv_20d": 57917615,
+      "sector": "Auto/EV"
+    },
+    {
+      "ticker": "F",
+      "name": "Ford Motor Company",
+      "volume": 22562438,
+      "price": 14.07,
+      "change_pct": -0.25,
+      "market_cap": 56064624088.06831,
+      "adv_20d": 56817857,
+      "sector": "Auto"
+    },
+    {
+      "ticker": "AMZN",
+      "name": "Amazon.com, Inc.",
+      "volume": 21459780,
+      "price": 234.52,
+      "change_pct": 0.74,
+      "market_cap": 2522757350890.05,
+      "adv_20d": 45324150,
+      "sector": "Consumer"
+    },
+    {
+      "ticker": "NFLX",
+      "name": "Netflix, Inc.",
+      "volume": 21053082,
+      "price": 73.0,
+      "change_pct": 0.16,
+      "market_cap": 307224065233.2461,
+      "adv_20d": 39968901,
+      "sector": "Entertainment"
     }
   ]
 }
