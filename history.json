@@ -224,6 +224,15 @@
       "top_snp": "AAL",
       "top_snp_vol": 69845391,
       "snp_total_vol": 299465359
+    },
+    {
+      "date": "2026-06-25",
+      "date_label": "Jun 25",
+      "top_all": "AAL",
+      "top_all_vol": 80055716,
+      "top_snp": "AAL",
+      "top_snp_vol": 80241032,
+      "snp_total_vol": 432840477
     }
   ]
 }
