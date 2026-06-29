@@ -242,6 +242,15 @@
       "top_snp": "NVDA",
       "top_snp_vol": 46614916,
       "snp_total_vol": 301952750
+    },
+    {
+      "date": "2026-06-29",
+      "date_label": "Jun 29",
+      "top_all": "NVDA",
+      "top_all_vol": 75646286,
+      "top_snp": "NVDA",
+      "top_snp_vol": 75677339,
+      "snp_total_vol": 441736640
     }
   ]
 }
