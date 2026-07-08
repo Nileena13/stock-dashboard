@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
-  <title>Stock Volume Dashboard - Jul 07, 2026</title>
+  <title>Stock Volume Dashboard - Jul 08, 2026</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -111,19 +111,19 @@
       <div><h1>Volume Dashboard</h1><div class="sub">Daily Trading Volume &middot; All US Stocks &amp; S&amp;P 500</div></div>
     </div>
     <div class="hdr-right">
-      <div class="pill"><span class="pill-dot"></span>Jul 07, 2026 · Live</div>
+      <div class="pill"><span class="pill-dot"></span>Jul 08, 2026 · Live</div>
       <button class="rbtn" onclick="openRefresh()">
         <svg id="ricon" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4"/></svg>
         Refresh
       </button>
     </div>
   </div>
-  <div class="stamp-bar">&#128197; <strong>Jul 07, 2026 · 12:04 PM ET · Live · Market Open</strong> &nbsp;&middot;&nbsp; Closed = last session close</div>
+  <div class="stamp-bar">&#128197; <strong>Jul 08, 2026 · 11:51 AM ET · Live · Market Open</strong> &nbsp;&middot;&nbsp; Closed = last session close</div>
   <div class="metrics">
-    <div class="metric"><div class="ml">Top All-Market</div><div class="mv">INTC</div><div class="ms">71.8M shares</div></div>
-    <div class="metric"><div class="ml">Top S&amp;P 500</div><div class="mv">INTC</div><div class="ms">71.8M shares</div></div>
-    <div class="metric"><div class="ml">S&amp;P Total Vol</div><div class="mv">315.7M</div><div class="ms">top 10 combined</div></div>
-    <div class="metric"><div class="ml">Largest Cap</div><div class="mv">NVDA</div><div class="ms">$4.73T</div></div>
+    <div class="metric"><div class="ml">Top All-Market</div><div class="mv">RIVN</div><div class="ms">60.7M shares</div></div>
+    <div class="metric"><div class="ml">Top S&amp;P 500</div><div class="mv">INTC</div><div class="ms">51.9M shares</div></div>
+    <div class="metric"><div class="ml">S&amp;P Total Vol</div><div class="mv">271.2M</div><div class="ms">top 10 combined</div></div>
+    <div class="metric"><div class="ml">Largest Cap</div><div class="mv">NVDA</div><div class="ms">$4.77T</div></div>
   </div>
   <div class="gl-wrap">
     <div class="gl-card gl-g"><div class="gl-head">Top Gainers</div><div id="glGain"></div></div>
@@ -182,37 +182,37 @@
   </div>
   <div class="foot">
     Live data from <a href="https://finance.yahoo.com" target="_blank">Yahoo Finance</a> via yfinance &middot;
-    Jul 07, 2026 &middot; Not financial advice &middot; Built with <a href="https://claude.ai" target="_blank">Claude AI</a>
+    Jul 08, 2026 &middot; Not financial advice &middot; Built with <a href="https://claude.ai" target="_blank">Claude AI</a>
   </div>
 </div>
 <script>
 const allStocks = [
-  { t:"INTC", n:"Intel Corporation", v:71806715, price:"$109.58", ch:-10.33, cap:"$550.62B", adv:136682379, sector:"Technology" },
-  { t:"NVDA", n:"NVIDIA Corporation", v:52197568, price:"$195.34", ch:-0.11, cap:"$4.73T", adv:158979488, sector:"Technology" },
-  { t:"AAL", n:"American Airlines Group, Inc.", v:40124865, price:"$17.41", ch:-1.92, cap:"$11.51B", adv:90769391, sector:"Airlines" },
-  { t:"RIVN", n:"Rivian Automotive, Inc.", v:39849663, price:"$17.05", ch:-15.35, cap:"$22.89B", adv:30795316, sector:"Auto/EV" },
-  { t:"SOFI", n:"SoFi Technologies, Inc.", v:32448955, price:"$18.05", ch:-3.04, cap:"$23.14B", adv:72694703, sector:"Finance" },
-  { t:"PLUG", n:"Plug Power, Inc.", v:30645616, price:"$2.44", ch:-7.39, cap:"$3.41B", adv:73683727, sector:"Energy" },
-  { t:"MU", n:"Micron Technology, Inc.", v:28797321, price:"$921.44", ch:-6.43, cap:"$1.04T", adv:51216262, sector:"Technology" },
-  { t:"PLTR", n:"Palantir Technologies Inc.", v:24792139, price:"$135.64", ch:2.34, cap:"$325.24B", adv:46083116, sector:"Technology" },
-  { t:"AMC", n:"AMC Entertainment Holdings, Inc", v:24271566, price:"$1.68", ch:-3.45, cap:"$1.50B", adv:38847711, sector:"Entertainment" },
-  { t:"SMCI", n:"Super Micro Computer, Inc.", v:18656547, price:"$26.08", ch:-4.06, cap:"$16.88B", adv:50768551, sector:"Technology" }
+  { t:"RIVN", n:"Rivian Automotive, Inc.", v:60691858, price:"$16.31", ch:-1.12, cap:"$22.19B", adv:31817722, sector:"Auto/EV" },
+  { t:"INTC", n:"Intel Corporation", v:51886528, price:"$104.53", ch:-5.31, cap:"$525.59B", adv:136856750, sector:"Technology" },
+  { t:"NVDA", n:"NVIDIA Corporation", v:49261515, price:"$197.04", ch:0.05, cap:"$4.77T", adv:158844308, sector:"Technology" },
+  { t:"AAL", n:"American Airlines Group, Inc.", v:47485012, price:"$16.15", ch:-6.13, cap:"$10.67B", adv:92051725, sector:"Airlines" },
+  { t:"SOFI", n:"SoFi Technologies, Inc.", v:27838398, price:"$17.12", ch:-3.52, cap:"$21.97B", adv:73278406, sector:"Finance" },
+  { t:"AMC", n:"AMC Entertainment Holdings, Inc", v:23963131, price:"$1.75", ch:1.51, cap:"$1.56B", adv:39220024, sector:"Entertainment" },
+  { t:"PLUG", n:"Plug Power, Inc.", v:23447713, price:"$2.42", ch:-2.42, cap:"$3.39B", adv:73482414, sector:"Energy" },
+  { t:"MU", n:"Micron Technology, Inc.", v:21365827, price:"$919.32", ch:-2.03, cap:"$1.04T", adv:51419891, sector:"Technology" },
+  { t:"PLTR", n:"Palantir Technologies Inc.", v:19740145, price:"$128.23", ch:-4.57, cap:"$307.30B", adv:46468569, sector:"Technology" },
+  { t:"TSLA", n:"Tesla, Inc.", v:16299889, price:"$392.65", ch:-2.55, cap:"$1.47T", adv:54562266, sector:"Auto/EV" }
 ];
 const snpStocks = [
-  { t:"INTC", n:"Intel Corporation", v:71845535, price:"$109.65", ch:-10.27, cap:"$551.25B", adv:136682379, sector:"Technology" },
-  { t:"NVDA", n:"NVIDIA Corporation", v:52256771, price:"$195.44", ch:-0.06, cap:"$4.73T", adv:158979488, sector:"Technology" },
-  { t:"AAL", n:"American Airlines Group, Inc.", v:40290350, price:"$17.4", ch:-1.95, cap:"$11.51B", adv:90769391, sector:"Airlines" },
-  { t:"MU", n:"Micron Technology, Inc.", v:28817571, price:"$921.61", ch:-6.41, cap:"$1.04T", adv:51216262, sector:"Technology" },
-  { t:"PLTR", n:"Palantir Technologies Inc.", v:24826985, price:"$135.55", ch:2.27, cap:"$325.03B", adv:46083116, sector:"Technology" },
-  { t:"T", n:"AT&T Inc.", v:24696799, price:"$20.99", ch:1.99, cap:"$145.81B", adv:49710269, sector:"Telecom" },
-  { t:"SMCI", n:"Super Micro Computer, Inc.", v:18678229, price:"$26.1", ch:-4.01, cap:"$16.89B", adv:50768551, sector:"Technology" },
-  { t:"AMZN", n:"Amazon.com, Inc.", v:18610155, price:"$243.93", ch:-0.09, cap:"$2.62T", adv:51159327, sector:"Consumer" },
-  { t:"AAPL", n:"Apple Inc.", v:17833962, price:"$314.22", ch:0.5, cap:"$4.62T", adv:54328700, sector:"Technology" },
-  { t:"TSLA", n:"Tesla, Inc.", v:17809651, price:"$407.52", ch:-2.92, cap:"$1.53T", adv:55147182, sector:"Auto/EV" }
+  { t:"INTC", n:"Intel Corporation", v:51930016, price:"$104.57", ch:-5.27, cap:"$525.37B", adv:136856750, sector:"Technology" },
+  { t:"NVDA", n:"NVIDIA Corporation", v:49300415, price:"$197.13", ch:0.1, cap:"$4.77T", adv:158844308, sector:"Technology" },
+  { t:"AAL", n:"American Airlines Group, Inc.", v:47757376, price:"$16.14", ch:-6.14, cap:"$10.68B", adv:92051725, sector:"Airlines" },
+  { t:"T", n:"AT&T Inc.", v:24059716, price:"$21.36", ch:1.28, cap:"$148.38B", adv:50336616, sector:"Telecom" },
+  { t:"MU", n:"Micron Technology, Inc.", v:21371614, price:"$919.8", ch:-1.98, cap:"$1.04T", adv:51419891, sector:"Technology" },
+  { t:"PLTR", n:"Palantir Technologies Inc.", v:19745652, price:"$128.25", ch:-4.55, cap:"$307.46B", adv:46468569, sector:"Technology" },
+  { t:"TSLA", n:"Tesla, Inc.", v:16308891, price:"$392.83", ch:-2.5, cap:"$1.48T", adv:54562266, sector:"Auto/EV" },
+  { t:"SMCI", n:"Super Micro Computer, Inc.", v:15186607, price:"$26.48", ch:0.88, cap:"$17.12B", adv:50988990, sector:"Technology" },
+  { t:"AAPL", n:"Apple Inc.", v:12794195, price:"$309.65", ch:-0.33, cap:"$4.55T", adv:54011319, sector:"Technology" },
+  { t:"F", n:"Ford Motor Company", v:12769662, price:"$13.38", ch:-1.36, cap:"$53.28B", adv:60133022, sector:"Auto" }
 ];
-const gainers=[{t:"PLTR",n:"Palantir Technologies Inc.",ch:2.34,price:"$135.64",sector:"Technology"},{t:"MSFT",n:"Microsoft Corporation",ch:1.79,price:"$393.64",sector:"Technology"},{t:"UBER",n:"Uber Technologies, Inc.",ch:1.32,price:"$73.37",sector:"Technology"},{t:"NFLX",n:"Netflix, Inc.",ch:1.08,price:"$76.84",sector:"Entertainment"},{t:"META",n:"Meta Platforms, Inc.",ch:0.73,price:"$604.67",sector:"Technology"}];
-const losers=[{t:"RIVN",n:"Rivian Automotive, Inc.",ch:-15.35,price:"$17.05",sector:"Auto/EV"},{t:"INTC",n:"Intel Corporation",ch:-10.33,price:"$109.58",sector:"Technology"},{t:"PLUG",n:"Plug Power, Inc.",ch:-7.39,price:"$2.44",sector:"Energy"},{t:"MU",n:"Micron Technology, Inc.",ch:-6.43,price:"$921.44",sector:"Technology"},{t:"AMD",n:"Advanced Micro Devices, Inc.",ch:-6.11,price:"$518.34",sector:"Technology"}];
-const historyData=[{"date": "2026-06-29", "label": "Jun 29", "topAll": "NVDA", "topAllVol": 75646286, "topSnp": "NVDA", "topSnpVol": 75677339, "snpTotalVol": 441736640},{"date": "2026-06-30", "label": "Jun 30", "topAll": "AAL", "topAllVol": 53115762, "topSnp": "AAL", "topSnpVol": 53137647, "snpTotalVol": 333313529},{"date": "2026-07-01", "label": "Jul 01", "topAll": "NVDA", "topAllVol": 59214975, "topSnp": "NVDA", "topSnpVol": 59241808, "snpTotalVol": 361686628},{"date": "2026-07-02", "label": "Jul 02", "topAll": "NVDA", "topAllVol": 49420224, "topSnp": "NVDA", "topSnpVol": 49683832, "snpTotalVol": 336425150},{"date": "2026-07-03", "label": "Jul 03", "topAll": "NVDA", "topAllVol": 142068700, "topSnp": "NVDA", "topSnpVol": 142068700, "snpTotalVol": 911480800},{"date": "2026-07-06", "label": "Jul 06", "topAll": "AAL", "topAllVol": 53086368, "topSnp": "AAL", "topSnpVol": 53156034, "snpTotalVol": 340714959},{"date": "2026-07-07", "label": "Jul 07", "topAll": "INTC", "topAllVol": 71806715, "topSnp": "INTC", "topSnpVol": 71845535, "snpTotalVol": 315666008}];
+const gainers=[{t:"AMC",n:"AMC Entertainment Holdings, Inc",ch:1.51,price:"$1.75",sector:"Entertainment"},{t:"SMCI",n:"Super Micro Computer, Inc.",ch:0.88,price:"$26.48",sector:"Technology"},{t:"SPCE",n:"Virgin Galactic Holdings, Inc.",ch:0.58,price:"$2.59",sector:"Aerospace"},{t:"NVDA",n:"NVIDIA Corporation",ch:0.05,price:"$197.04",sector:"Technology"}];
+const losers=[{t:"AAL",n:"American Airlines Group, Inc.",ch:-6.13,price:"$16.15",sector:"Airlines"},{t:"INTC",n:"Intel Corporation",ch:-5.31,price:"$104.53",sector:"Technology"},{t:"PLTR",n:"Palantir Technologies Inc.",ch:-4.57,price:"$128.23",sector:"Technology"},{t:"SOFI",n:"SoFi Technologies, Inc.",ch:-3.52,price:"$17.12",sector:"Finance"},{t:"MARA",n:"MARA Holdings, Inc.",ch:-3.02,price:"$11.69",sector:"Crypto"}];
+const historyData=[{"date": "2026-06-30", "label": "Jun 30", "topAll": "AAL", "topAllVol": 53115762, "topSnp": "AAL", "topSnpVol": 53137647, "snpTotalVol": 333313529},{"date": "2026-07-01", "label": "Jul 01", "topAll": "NVDA", "topAllVol": 59214975, "topSnp": "NVDA", "topSnpVol": 59241808, "snpTotalVol": 361686628},{"date": "2026-07-02", "label": "Jul 02", "topAll": "NVDA", "topAllVol": 49420224, "topSnp": "NVDA", "topSnpVol": 49683832, "snpTotalVol": 336425150},{"date": "2026-07-03", "label": "Jul 03", "topAll": "NVDA", "topAllVol": 142068700, "topSnp": "NVDA", "topSnpVol": 142068700, "snpTotalVol": 911480800},{"date": "2026-07-06", "label": "Jul 06", "topAll": "AAL", "topAllVol": 53086368, "topSnp": "AAL", "topSnpVol": 53156034, "snpTotalVol": 340714959},{"date": "2026-07-07", "label": "Jul 07", "topAll": "INTC", "topAllVol": 71806715, "topSnp": "INTC", "topSnpVol": 71845535, "snpTotalVol": 315666008},{"date": "2026-07-08", "label": "Jul 08", "topAll": "RIVN", "topAllVol": 60691858, "topSnp": "INTC", "topSnpVol": 51930016, "snpTotalVol": 271224144}];
 const allColors=['#185FA5','#378ADD','#378ADD','#378ADD','#378ADD','#85B7EB','#85B7EB','#85B7EB','#85B7EB','#85B7EB'];
 const snpColors=['#0F6E56','#1D9E75','#1D9E75','#1D9E75','#1D9E75','#5DCAA5','#5DCAA5','#5DCAA5','#5DCAA5','#5DCAA5'];
 const isMobile=window.innerWidth<=600;
