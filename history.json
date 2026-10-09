@@ -1,15 +1,6 @@
 {
   "entries": [
     {
-      "date": "2026-08-28",
-      "date_label": "Aug 28",
-      "top_all": "NVDA",
-      "top_all_vol": 194036188,
-      "top_snp": "NVDA",
-      "top_snp_vol": 194036188,
-      "snp_total_vol": 607465525
-    },
-    {
       "date": "2026-08-31",
       "date_label": "Aug 31",
       "top_all": "NVDA",
@@ -269,6 +260,15 @@
       "top_snp": "INTC",
       "top_snp_vol": 92619694,
       "snp_total_vol": 436019912
+    },
+    {
+      "date": "2026-10-09",
+      "date_label": "Oct 09",
+      "top_all": "NVDA",
+      "top_all_vol": 57697976,
+      "top_snp": "T",
+      "top_snp_vol": 116218771,
+      "snp_total_vol": 485290938
     }
   ]
 }
