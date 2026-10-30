@@ -1,15 +1,6 @@
 {
   "entries": [
     {
-      "date": "2026-09-18",
-      "date_label": "Sep 18",
-      "top_all": "INTC",
-      "top_all_vol": 61918182,
-      "top_snp": "INTC",
-      "top_snp_vol": 61960013,
-      "snp_total_vol": 351985043
-    },
-    {
       "date": "2026-09-21",
       "date_label": "Sep 21",
       "top_all": "INTC",
@@ -269,6 +260,15 @@
       "top_snp": "GOOGL",
       "top_snp_vol": 107288885,
       "snp_total_vol": 461006034
+    },
+    {
+      "date": "2026-10-30",
+      "date_label": "Oct 30",
+      "top_all": "INTC",
+      "top_all_vol": 335387692,
+      "top_snp": "INTC",
+      "top_snp_vol": 335417256,
+      "snp_total_vol": 728484240
     }
   ]
 }
